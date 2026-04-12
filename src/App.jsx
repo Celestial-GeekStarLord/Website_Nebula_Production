@@ -1,121 +1,95 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from 'react';
+import './styles/hero.css';
+import MainContent from './components/MainContent';
+import PortfolioPage from './components/PortfolioPage';
 
-function App() {
-  const [count, setCount] = useState(0)
+
+export default function App() {
+  const [portfolioPage, setPortfolioPage] = useState(null);
+  // portfolioPage = { category, data, videos } or null
+
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+  function scrollTo(id) {
+    const el = document.querySelector(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setMobileNavOpen(false);
+  }
+
+  if (portfolioPage) {
+    return <PortfolioPage
+  portfolioPage={portfolioPage}
+  onBack={() => {
+    setPortfolioPage(null);
+    setTimeout(() => {
+      const el = document.querySelector('#portfolio');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  }}
+/>;
+  }
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+      {/* DESKTOP NAVBAR */}
+      <nav className="main-navbar">
+        <div className="nav-container">
+          <div className="nav-logo">
+            <img src="nebula logo.jpg" alt="Nebula Logo" onError={e => e.target.style.display = 'none'} />
+          </div>
+          <ul className="nav-links">
+            {['#home','#about','#services','#weddingGallery','#portfolio','#pricing','#testimonials','#team','#contact'].map((href, i) => (
+              <li key={href}>
+                <a href={href} onClick={e => { e.preventDefault(); scrollTo(href); }}>
+                  {['HOME','ABOUT US','SERVICES','WEDDING GALLERY','PORTFOLIO','PRICING','REVIEWS','OUR TEAM','CONTACT US'][i]}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
+      </nav>
+
+      {/* MOBILE TOP BAR */}
+      <div className="mobile-top-bar">
+        <div className="mobile-logo">
+          <img src="nebula logo.jpg" alt="Logo" style={{ height: '45px' }} />
         </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
+        <button className="hamburger" onClick={() => setMobileNavOpen(true)}>
+          <span /><span /><span />
         </button>
-      </section>
+      </div>
 
-      <div className="ticks"></div>
+      {/* MOBILE NAV */}
+      <div className={`mobile-nav${mobileNavOpen ? ' active' : ''}`}>
+        <button className="close-menu" onClick={() => setMobileNavOpen(false)}>&times;</button>
+        {['#home','#about','#services','#weddingGallery','#portfolio','#pricing','#testimonials','#team','#contact'].map((href, i) => (
+          <a key={href} href={href} onClick={e => { e.preventDefault(); scrollTo(href); }}>
+            {['HOME','ABOUT US','SERVICES','WEDDING GALLERY','PORTFOLIO','PRICING','REVIEWS','OUR TEAM','CONTACT US'][i]}
+          </a>
+        ))}
+      </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+      {/* HERO / VIDEO HEADER */}
+      <div className="video-header">
+        <video autoPlay loop muted playsInline id="headerVideo">
+          <source src="video/Bride-highlight.mp4" type="video/mp4" />
+        </video>
+        <div className="header-overlay" />
+        <div className="hero-text">
+          <div className="company-name">
+            <span className="nebula">NEBULA</span> PRODUCTION
+          </div>
+          <div className="tagline">Documentary • Film • Commercial Production</div>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      </div>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      {/* WHATSAPP BUTTON */}
+      <a href="https://wa.me/9813328713" className="chat-button" target="_blank" rel="noreferrer">
+        💬 Chat on WhatsApp
+      </a>
+
+      {/* ALL OTHER SECTIONS */}
+      <MainContent onOpenPortfolio={setPortfolioPage} />
     </>
-  )
+  );
 }
-
-export default App

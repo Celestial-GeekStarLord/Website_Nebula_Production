@@ -208,11 +208,7 @@ export default function MainContent({ onOpenPortfolio }) {
               <div className="team-info">
                 <div className="team-name">{m.name}</div>
                 <div className="team-post">{m.post}</div>
-                <div className="team-social">
-                  <a href={m.fb} target="_blank" rel="noreferrer">📘</a>
-                  <a href={m.ig} target="_blank" rel="noreferrer">📷</a>
-                  <a href={m.linkedin} target="_blank" rel="noreferrer">🔗</a>
-                </div>
+               
                 <div className="team-description">{m.desc}</div>
                 <div className="team-divider"></div>
               </div>

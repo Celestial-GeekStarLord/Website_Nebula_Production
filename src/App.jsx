@@ -35,7 +35,7 @@ export default function App() {
       <nav className="main-navbar">
         <div className="nav-container">
           <div className="nav-logo">
-            <img src="nebula logo.jpg" alt="Nebula Logo" onError={e => e.target.style.display = 'none'} />
+            <img src="nebula_logo.png" alt="Nebula Logo" onError={e => e.target.style.display = 'none'} />
           </div>
           <ul className="nav-links">
             {['#home','#about','#services','#weddingGallery','#portfolio','#pricing','#testimonials','#team','#contact'].map((href, i) => (
@@ -52,7 +52,7 @@ export default function App() {
       {/* MOBILE TOP BAR */}
       <div className="mobile-top-bar">
         <div className="mobile-logo">
-          <img src="nebula logo.jpg" alt="Logo" style={{ height: '45px' }} />
+          <img src="nebula_logo.png" alt="Logo" style={{ height: '45px' }} />
         </div>
         <button className="hamburger" onClick={() => setMobileNavOpen(true)}>
           <span /><span /><span />

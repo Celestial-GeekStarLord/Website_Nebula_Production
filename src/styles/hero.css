@@ -182,7 +182,7 @@ body {
         }
 
         .chat-button::before {
-            content: "💬"; /* or use WhatsApp icon */
+            content: "💬"; 
             font-size: 22px;
         }
     }
